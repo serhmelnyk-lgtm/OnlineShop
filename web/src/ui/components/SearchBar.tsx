@@ -15,20 +15,37 @@ export function SearchBar(props: { value: string; onChange: (v: string) => void;
 
   return (
     <div className="relative">
+      <span className="pointer-events-none absolute left-3.5 top-1/2 z-[1] -translate-y-1/2 text-zinc-400 dark:text-zinc-500">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
+          <path
+            d="M11 19a8 8 0 100-16 8 8 0 000 16zm10 2l-4.35-4.35"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+          />
+        </svg>
+      </span>
       <input
-        className="w-full rounded-lg border border-zinc-200 bg-white px-4 py-2 pr-10 text-sm outline-none focus:ring-2 focus:ring-indigo-500 dark:border-zinc-800 dark:bg-zinc-900"
+        className="ui-input motion-safe:transition motion-reduce:transition-none w-full pl-11 pr-11 py-2.5 text-[15px] leading-snug text-zinc-900 dark:text-zinc-100"
         placeholder="Search products (try typos like “iphnoe”, “laptpo”)…"
         value={local}
+        aria-busy={props.isLoading}
         onChange={(e) => {
           const v = e.target.value
           setLocal(v)
           debounced(v)
         }}
       />
-      <div className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-xs text-zinc-500 dark:text-zinc-400">
-        {props.isLoading ? '…' : ''}
+      <div
+        className="pointer-events-none absolute right-3.5 top-1/2 flex h-5 w-5 -translate-y-1/2 items-center justify-center text-violet-600 dark:text-violet-400"
+        aria-live="polite"
+      >
+        {props.isLoading ? (
+          <span className="relative flex h-4 w-4">
+            <span className="absolute inset-0 animate-spin rounded-full border-2 border-solid border-zinc-200 border-t-violet-600 dark:border-zinc-700 dark:border-t-violet-400" />
+          </span>
+        ) : null}
       </div>
     </div>
   )
 }
-

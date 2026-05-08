@@ -45,28 +45,36 @@ export function ElasticsearchAggregationsPage() {
     setReq((r) => ({ ...r, aggregationMode, page: 1 }))
 
   return (
-    <div className="space-y-4">
-      <div className="rounded-2xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
-        <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-          <div className="flex-1">
+    <div className="space-y-6">
+      <div className="ui-surface p-4 sm:p-5">
+        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between md:gap-6">
+          <div className="min-w-0 flex-1">
             <SearchBar value={req.query ?? ''} onChange={setQuery} isLoading={q.isFetching} />
           </div>
-          <div className="flex flex-wrap items-center gap-2">
+          <div className="flex flex-wrap items-center gap-3">
+            <label className="sr-only" htmlFor="agg-sort-select">
+              Sort results
+            </label>
             <select
-              className="rounded-md border border-zinc-200 bg-white px-3 py-2 text-sm dark:border-zinc-800 dark:bg-zinc-950"
+              id="agg-sort-select"
+              className="ui-select min-w-[10rem] font-medium text-zinc-900 dark:text-zinc-100"
               value={req.sort}
               onChange={(e) => setSort(e.target.value as ProductSort)}
             >
-              <option value="Relevance">Relevance</option>
-              <option value="PriceAsc">Price ↑</option>
-              <option value="PriceDesc">Price ↓</option>
-              <option value="RatingDesc">Rating</option>
-              <option value="Newest">Newest</option>
+              <option value="Relevance">Sort · Relevance</option>
+              <option value="PriceAsc">Sort · Price ↑</option>
+              <option value="PriceDesc">Sort · Price ↓</option>
+              <option value="RatingDesc">Sort · Rating</option>
+              <option value="Newest">Sort · Newest</option>
             </select>
-            <div className="flex items-center gap-2">
-              <span className="text-xs text-zinc-500 dark:text-zinc-400">Agg mode</span>
+            <div className="flex items-center gap-2 rounded-xl bg-zinc-900/[0.04] px-3 py-2 dark:bg-white/[0.06]">
+              <span className="text-xs font-medium text-zinc-500 dark:text-zinc-400">Agg mode</span>
+              <label htmlFor="agg-mode-select" className="sr-only">
+                Aggregation bucket mode
+              </label>
               <select
-                className="rounded-md border border-zinc-200 bg-white px-2 py-2 text-xs dark:border-zinc-800 dark:bg-zinc-950"
+                id="agg-mode-select"
+                className="ui-select py-1.5 text-xs font-semibold text-zinc-900 dark:text-zinc-100"
                 value={req.aggregationMode}
                 onChange={(e) => setAggregationMode(e.target.value as AggregationMode)}
               >
@@ -78,7 +86,7 @@ export function ElasticsearchAggregationsPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-12 gap-4">
+      <div className="grid grid-cols-12 items-start gap-6">
         <aside className="col-span-12 lg:col-span-3">
           <FilterSidebar
             req={req}
