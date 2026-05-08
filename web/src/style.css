@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+/* Light/dark mode is handled via a 'class' on <html>. */
+html {
+  color-scheme: light;
+}
+html.dark {
+  color-scheme: dark;
+}
+
